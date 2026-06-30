@@ -30,12 +30,12 @@ st.markdown("""
     .main-title {
         font-size: 2rem;
         font-weight: 700;
-        color: #FFFFFF;
+        color: #212121;
         margin-bottom: 0.2rem;
     }
     .subtitle {
         font-size: 1rem;
-        color: #FFFFFF;
+        color: #424242;
         margin-bottom: 1.5rem;
     }
     .result-churn {
@@ -64,10 +64,10 @@ st.markdown("""
         margin-bottom: 0.5rem;
     }
     .section-title {
-        color: #FFFFFF;
+        color: #212121;
         font-weight: 600;
         font-size: 1.1rem;
-        border-bottom: 2px solid #FFFFFF;
+        border-bottom: 2px solid #90CAF9;
         padding-bottom: 0.3rem;
         margin-bottom: 0.8rem;
     }
