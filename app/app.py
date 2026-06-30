@@ -187,7 +187,6 @@ with col_input:
         is_premium_user = st.checkbox('Pengguna Premium', value=False)
         
         st.markdown('---')
-        predict_btn1 = st.button('Prediksi Churn', key='btn1', use_container_width=True, type='primary')
         with st.expander('Penjelasan Fitur - Profil & Akun'):
             st.dataframe(pd.DataFrame([
                 ['Jenis Kelamin', 'Jenis kelamin pelanggan (Male, Female, Other)'],
@@ -216,7 +215,6 @@ with col_input:
         discount_used = st.checkbox('Menggunakan Diskon', value=False)
         
         st.markdown('---')
-        predict_btn2 = st.button('Prediksi Churn', key='btn2', use_container_width=True, type='primary')
         with st.expander('Penjelasan Fitur - Aktivitas & Transaksi'):
             st.dataframe(pd.DataFrame([
                 ['Total Kunjungan', 'Total kunjungan ke platform'],
@@ -243,7 +241,7 @@ with col_input:
             refund_requested = st.checkbox('Pernah Minta Refund', value=False)
             
         st.markdown('---')
-        predict_btn3 = st.button('Prediksi Churn', key='btn3', use_container_width=True, type='primary')
+        predict_btn = st.button('Prediksi Churn', use_container_width=True, type='primary')
         with st.expander('Penjelasan Fitur - Layanan & Kepuasan'):
             st.dataframe(pd.DataFrame([
                 ['Jumlah Tiket Support', 'Jumlah tiket dukungan yang dibuat pelanggan'],
@@ -254,7 +252,6 @@ with col_input:
                 ['Pernah Minta Refund', 'Apakah pelanggan pernah mengajukan refund']
             ], columns=['Fitur', 'Penjelasan']), use_container_width=True, hide_index=True)
     st.markdown('')
-    predict_btn = predict_btn1 or predict_btn2 or predict_btn3
 
 # ============================================================
 # Panel hasil prediksi
