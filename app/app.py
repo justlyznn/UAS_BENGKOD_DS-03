@@ -184,7 +184,18 @@ with col_input:
             payment_method      = st.selectbox('Metode Pembayaran', ['BKash', 'Card', 'PayPal', 'SEPA', 'UPI'])
 
         is_premium_user = st.checkbox('Pengguna Premium', value=False)
-
+        
+        st.markdown('---')
+        with st.expander('Penjelasan Fitur - Profil & Akun'):
+            st.dataframe(pd.DataFrame([
+                ['Jenis Kelamin', 'Jenis kelamin pelanggan (Male, Female, Other)'],
+                ['Usia', 'Usia pelanggan dalam tahun'],
+                ['Tipe Langganan', 'Tipe langganan (Annual = tahunan, Monthly = bulanan)'],
+                ['Tipe Perangkat', 'Perangkat utama yang digunakan'],
+                ['Channel Akuisisi', 'Dari mana pelanggan pertama kali mendaftar'],
+                ['Metode Pembayaran', 'Cara pelanggan melakukan pembayaran'],
+                ['Pengguna Premium', 'Apakah pelanggan berlangganan paket premium']
+            ], columns=['Fitur', 'Penjelasan']), use_container_width=True, hide_index=True)
     with tab2:
         c3, c4 = st.columns(2)
         with c3:
@@ -201,7 +212,21 @@ with col_input:
             marketing_spend  = st.number_input('Marketing Spend per User (USD)', min_value=0.0, value=15.0, step=1.0)
 
         discount_used = st.checkbox('Menggunakan Diskon', value=False)
-
+        
+        st.markdown('---')
+        with st.expander('Penjelasan Fitur - Aktivitas & Transaksi'):
+            st.dataframe(pd.DataFrame([
+                ['Total Kunjungan', 'Total kunjungan ke platform'],
+                ['Rata-rata Waktu Sesi', 'Rata-rata durasi sesi penggunaan dalam menit'],
+                ['Halaman per Sesi', 'Rata-rata halaman yang dikunjungi per sesi'],
+                ['Email Open Rate', 'Persentase email promosi yang dibuka (0-1)'],
+                ['Email Click Rate', 'Persentase klik pada email promosi (0-1)'],
+                ['Total Pengeluaran', 'Total pengeluaran pelanggan dalam USD'],
+                ['Rata-rata Nilai Transaksi', 'Rata-rata nilai per transaksi dalam USD'],
+                ['Lifetime Value', 'Nilai total pelanggan selama berlangganan dalam USD'],
+                ['Marketing Spend', 'Biaya pemasaran per pelanggan dalam USD'],
+                ['Menggunakan Diskon', 'Apakah pelanggan pernah menggunakan diskon']
+            ], columns=['Fitur', 'Penjelasan']), use_container_width=True, hide_index=True)
     with tab3:
         c5, c6 = st.columns(2)
         with c5:
@@ -213,7 +238,17 @@ with col_input:
             satisfaction     = st.slider('Skor Kepuasan (1-5)', 1.0, 5.0, 3.5, step=0.5)
             nps_score        = st.slider('NPS Score', 0, 10, 7)
             refund_requested = st.checkbox('Pernah Minta Refund', value=False)
-
+            
+        st.markdown('---')
+        with st.expander('Penjelasan Fitur - Layanan & Kepuasan'):
+            st.dataframe(pd.DataFrame([
+                ['Jumlah Tiket Support', 'Jumlah tiket dukungan yang dibuat pelanggan'],
+                ['Keterlambatan Pengiriman', 'Rata-rata keterlambatan pengiriman dalam hari'],
+                ['Frekuensi Pembelian', 'Frekuensi pembelian dalam 3 bulan terakhir'],
+                ['Skor Kepuasan', 'Skor kepuasan pelanggan (1-5)'],
+                ['NPS Score', 'Net Promoter Score (0-10)'],
+                ['Pernah Minta Refund', 'Apakah pelanggan pernah mengajukan refund']
+            ], columns=['Fitur', 'Penjelasan']), use_container_width=True, hide_index=True)
     st.markdown('')
     predict_btn = st.button('Prediksi Churn', use_container_width=True, type='primary')
 
@@ -293,32 +328,3 @@ with col_result:
         st.write(f'**Jumlah Fitur:** {len(top_feature_names)}')
         st.write('**Skenario:** Hyperparameter Tuning + Feature Selection')
 
-# ============================================================
-# Penjelasan fitur di bawah
-# ============================================================
-st.markdown('---')
-with st.expander('Penjelasan Fitur Input'):
-    fitur_info = {
-        'gender'                    : 'Jenis kelamin pelanggan (Male, Female, Other)',
-        'age'                       : 'Usia pelanggan dalam tahun',
-        'subscription_type'         : 'Tipe langganan (Annual = tahunan, Monthly = bulanan)',
-        'is_premium_user'           : 'Apakah pelanggan adalah pengguna premium (1 = ya, 0 = tidak)',
-        'total_visits'              : 'Total kunjungan ke platform',
-        'avg_session_time'          : 'Rata-rata durasi sesi penggunaan dalam menit',
-        'pages_per_session'         : 'Rata-rata halaman yang dikunjungi per sesi',
-        'email_open_rate'           : 'Persentase email promosi yang dibuka (0-1)',
-        'email_click_rate'          : 'Persentase klik pada email promosi (0-1)',
-        'total_spent'               : 'Total pengeluaran pelanggan dalam USD',
-        'avg_order_value'           : 'Rata-rata nilai per transaksi dalam USD',
-        'discount_used'             : 'Apakah pelanggan pernah menggunakan diskon',
-        'support_tickets'           : 'Jumlah tiket dukungan yang dibuat pelanggan',
-        'refund_requested'          : 'Apakah pelanggan pernah mengajukan refund',
-        'delivery_delay_days'       : 'Rata-rata keterlambatan pengiriman dalam hari',
-        'satisfaction_score'        : 'Skor kepuasan pelanggan (1-5)',
-        'nps_score'                 : 'Net Promoter Score (0-10)',
-        'marketing_spend_per_user'  : 'Biaya pemasaran per pelanggan dalam USD',
-        'lifetime_value'            : 'Nilai total pelanggan selama berlangganan dalam USD',
-        'last_3_month_purchase_freq': 'Frekuensi pembelian dalam 3 bulan terakhir',
-    }
-    df_info = pd.DataFrame(list(fitur_info.items()), columns=['Fitur', 'Penjelasan'])
-    st.dataframe(df_info, use_container_width=True, hide_index=True)
