@@ -10,6 +10,7 @@ import joblib
 import numpy as np
 import pandas as pd
 import streamlit as st
+import plotly.graph_objects as go
 
 warnings.filterwarnings('ignore')
 
@@ -300,13 +301,42 @@ with col_result:
                 st.markdown('<div class="result-no-churn">Tidak Churn - Pelanggan Aman</div>', unsafe_allow_html=True)
 
             st.markdown('')
-            st.write(f'**Probabilitas Churn:** {prob_churn:.1f}%')
-            st.progress(int(prob_churn))
+            
+            # --- Gauge Chart untuk Risiko Churn ---
+            fig_gauge = go.Figure(go.Indicator(
+                mode = "gauge+number",
+                value = prob_churn,
+                domain = {'x': [0, 1], 'y': [0, 1]},
+                title = {'text': "Risiko Churn (%)", 'font': {'size': 18, 'color': '#212121'}},
+                number = {'font': {'color': '#212121'}},
+                gauge = {
+                    'axis': {'range': [None, 100], 'tickwidth': 1, 'tickcolor': "#424242"},
+                    'bar': {'color': "#EF5350" if pred == 1 else "#1E88E5"},
+                    'bgcolor': "white",
+                    'borderwidth': 2,
+                    'bordercolor': "#EEEEEE",
+                    'steps': [
+                        {'range': [0, 40], 'color': '#E8F5E9'},  # Aman
+                        {'range': [40, 60], 'color': '#FFF9C4'}, # Waspada
+                        {'range': [60, 100], 'color': '#FFEBEE'} # Bahaya
+                    ]
+                }
+            ))
+            fig_gauge.update_layout(height=250, margin=dict(l=20, r=20, t=40, b=20))
+            st.plotly_chart(fig_gauge, use_container_width=True)
 
-            st.markdown('')
+            st.markdown('---')
             st.markdown('**Detail Probabilitas:**')
-            st.write(f'- Tidak Churn : {prob[0]*100:.1f}%')
-            st.write(f'- Churn       : {prob[1]*100:.1f}%')
+            
+            # --- Bar Chart untuk Detail Probabilitas ---
+            fig_bar = go.Figure(data=[
+                go.Bar(name='Tidak Churn', x=['Probabilitas'], y=[prob[0]*100], marker_color='#1E88E5', text=[f"{prob[0]*100:.1f}%"], textposition='auto'),
+                go.Bar(name='Churn', x=['Probabilitas'], y=[prob[1]*100], marker_color='#EF5350', text=[f"{prob[1]*100:.1f}%"], textposition='auto')
+            ])
+            fig_bar.update_layout(barmode='group', height=250, margin=dict(l=20, r=20, t=20, b=20),
+                                  xaxis_title="", yaxis_title="Persentase (%)", yaxis_range=[0, 100],
+                                  legend=dict(orientation="h", yanchor="bottom", y=1.02, xanchor="right", x=1))
+            st.plotly_chart(fig_bar, use_container_width=True)
 
             if pred == 1:
                 st.markdown('---')
