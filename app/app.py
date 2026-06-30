@@ -187,6 +187,7 @@ with col_input:
         is_premium_user = st.checkbox('Pengguna Premium', value=False)
         
         st.markdown('---')
+        st.info('👉 **Langkah Selanjutnya:** Klik tab **Aktivitas & Transaksi** di bagian atas.')
         with st.expander('Penjelasan Fitur - Profil & Akun'):
             st.dataframe(pd.DataFrame([
                 ['Jenis Kelamin', 'Jenis kelamin pelanggan (Male, Female, Other)'],
@@ -215,6 +216,7 @@ with col_input:
         discount_used = st.checkbox('Menggunakan Diskon', value=False)
         
         st.markdown('---')
+        st.info('👉 **Langkah Terakhir:** Klik tab **Layanan & Kepuasan** di bagian atas untuk memprediksi.')
         with st.expander('Penjelasan Fitur - Aktivitas & Transaksi'):
             st.dataframe(pd.DataFrame([
                 ['Total Kunjungan', 'Total kunjungan ke platform'],
@@ -348,7 +350,7 @@ with col_result:
     elif not model_loaded:
         st.info('Model belum dimuat. Jalankan notebook terlebih dahulu untuk menghasilkan model.')
     else:
-        st.info('Isi data pelanggan di panel kiri, lalu klik tombol "Prediksi Churn".')
+        st.info('Silakan lengkapi data secara berurutan dari tab Profil hingga Layanan, lalu klik tombol "Prediksi Churn" di tab terakhir.')
 
     # Info model
     if model_loaded:
